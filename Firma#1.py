@@ -59,3 +59,5 @@ tablica=pd.DataFrame(lista,columns=['Konto','Stopa VAT','Cecha','Wartość'])
 #Zapisywanie
 work.to_excel('Sandra_{}.xlsx'.format(today))
 tablica.to_excel('Sumy_{}.xlsx'.format(today))
+
+print('Raport gotowy')
