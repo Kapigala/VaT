@@ -1,0 +1,28 @@
+Instruckcja obsługi:
+1)Zmieniamy nazwę pobranego pliku Excel na nazwę firmy, gdzie xls to rozszerzenie bazowe dla Excela.
+2)Przygotowany plik umieszczamy w folderze FLOTEX
+3)Otwieramy cmd
+4)W cmd wklejamy pierwszą linijkę z notatnika Komenda.txt, klikamy enter,
+ a następnie wklejamy drugą i ponownie enter.
+5) W wyznaczonym miejscu wpisujemy nazwę pliku wraz z rozszerzeniem
+6)Czekamy na informację
+7a) W przypadku błędu czytamy komunikat przerwania
+7a.1) Poprawiamy nazwę pliku 7a.2) Kontaktujemy się po uzupełnienia  
+7a.3) Jeśli wpisana nazwa jest poprawna wykonujemy polecenie erroru. 
+8)PRZENOSIMY nowo powstałe pliki oraz bazowy do innego folderu lub na pulpit + zamykamy cmd
+
+
+Aktualizacje:
+-Zmiany niezależne takie jak: Nowy samochów w rejestrze, 
+zmiana konta przypisywanego danemu atrybutowi etc. 
+należy zgłosić drogą mailową na kacper.galek@gmail.com -Uzupełnione zostaną możliwie szybko.
+
+-Zmiany pomocnicze takie jak: Wyświetlanie dodatkowej kolumny czy nowa funkcjonalność,
+należy zgłosić do koordynatora- Następnie dokonuję oceny stopnia wykonalności
+ i trudności danej propozycji zmian
+
+-Najnowsza wersja wraz z opisem zmian w porównaniu do wersji poprzedniej, dostępne są 
+pod adresem https://github.com/Kapigala/VaT lub po kliknięciu w skrót 'Aktualizacje-GitHub',
+znajdującym się w folderze z programem. 
+-Aktualizacja następuje poprzed zastąpienie plików
+z VaT-x_z.rar w folderze FLOTEX
