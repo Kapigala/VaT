@@ -25,7 +25,7 @@ car=['WE769UX', 'WB2733U', 'WB2734U', ]
 truck=['EL8G506', 'EL6T639', 'EL6T641', 'WZ977OY', 'WW094SE', 'DW1JY97', 'EL6T639']
 
 #Wczytywanie danych
-plik='../AWU-TAX/raw.xls'
+plik='../Flotex/raw.xls'
 try:
     df_full=pd.read_excel(plik)
 except:
