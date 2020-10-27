@@ -26,11 +26,11 @@ truck=['EL8G506', 'EL6T639', 'EL6T641', 'WZ977OY', 'WW094SE', 'DW1JY97', 'EL6T63
 
 #Wczytywanie danych
 plik='../Flotex/raw.xls'
-try:
+#try:
     df_full=pd.read_excel(plik)
-except:
-    print('Błąd:\nPlik powinien posiadać nazwę: raw.xls')
-    exit()
+#except:
+ #   print('Błąd:\nPlik powinien posiadać nazwę: raw.xls')
+  #  exit()
 df_full=pd.read_excel(plik)
 df_full=df_full.rename(columns={'Wartosc netto po rabacie':'Wartosc netto'})
 df=df_full[['Numer karty','Nr rejestracyjny / Imię i nazwisko','Grupa produktowa','Ilosc','Jednostka',
