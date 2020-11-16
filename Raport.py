@@ -45,7 +45,10 @@ except:
     exit()
 
 df_full=pd.read_excel(plik)
-df_full['Wystawca dokumentu'][1] += 1
+if df_full['Wystawca dokumentu'][1] == 'foo':
+	df_full['Wystawca dokumentu'][1] = 'oof'
+else:
+	df_full['Wystawca dokumentu'][1] = 'foo'
 df_full=df_full.rename(columns={'Wartosc netto po rabacie':'Wartosc netto'})
 df=df_full[['Numer karty','Nr rejestracyjny / Imię i nazwisko','Grupa produktowa','Ilosc','Jednostka',
            'Cena za jednostke','Wartosc netto','Stopa VAT','Brutto']]
