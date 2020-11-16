@@ -1,16 +1,17 @@
 import pandas as pd
 from def_base import car_miss,car_size,vat_i_brutto_fix,account_pull,odlicz,transfer_grosza,podsumowanie,find_newcomer
+from def_base import fold
 from datetime import date
 pd.options.mode.chained_assignment = None  # default='warn'
 
-print('VaT 2020 ver 1.1c')
+print('VaT 2020 ver 1.2')
+print('Kasia1 PSD     Kamila PSG')
+car,truck,card_code,id=fold()
 nazwa=input('Proszę podać nazwę pliku > ')
 
 ####TEST##3
-#nazwa='raw1.xls'
+#nazwa='raw.xls'
 plik='../Flotex/{}'.format(nazwa)
-
-
 
 #Listy,Słowniki
 attribute={'OLEJ NAPĘDOWY': 'PALIWO', 'LPG': 'PALIWO', 'GAZ PLYNNY       LTR': 'PALIWO',
@@ -24,18 +25,10 @@ attribute={'OLEJ NAPĘDOWY': 'PALIWO', 'LPG': 'PALIWO', 'GAZ PLYNNY       LTR': 
            'PŁYNY EKSPLOATACYJNE':'PŁYNY EKSPLOATACYJNE/OLEJE SILNIKOWE/INNE PRODUKTY',
            'KOSMETYKI SAMOCHODOWE':'PŁYNY EKSPLOATACYJNE/OLEJE SILNIKOWE/INNE PRODUKTY',
            'AKCESORIA SAMOCHODOWE':'PŁYNY EKSPLOATACYJNE/OLEJE SILNIKOWE/INNE PRODUKTY',
-           'USŁUGI SAMOCHODOWE':'MYJNIA','ADBLUE SZT':'PŁYNY EKSPLOATACYJNE/OLEJE SILNIKOWE/INNE PRODUKTY',
-           'AUTO MYJNIA SZT':'MYJNIA','ADBLUE':'PŁYNY EKSPLOATACYJNE/OLEJE SILNIKOWE/INNE PRODUKTY',
-	        'BEZOLOW 95 LTR':'PALIWO','ULTIMATE DIESEL LTR':'PALIWO'}
-card_code={78971516571135926: 'EL6T641', 201924: 'WW094SE', 78971516571135892: 'WB2733U',
-           78971516571151378:'WZ977OY', 78971516571135918:'EL6T639', 219777:'DW1JY97',
-           78971516571151386:'WW094SE', 78971516571135900:'WB2734U', 78971516724804410:'DW1JY97', 78971516571135884:'EL8G506',
-           196405:'WB2734U', 196371:'WE769UX', 196389:'EL8G506', 196397:'WB2733U', 196413:'EL6T639', 196421:'EL6T641',
-           213937:'WZ977OY', 78971516571135876:'WE769UX', 196413:'EL6T639'}
-car=['WE769UX', 'WB2733U', 'WB2734U', ]
-truck=['EL8G506', 'EL6T639', 'EL6T641', 'WZ977OY', 'WW094SE', 'DW1JY97', 'EL6T639']
+           'USŁUGI SAMOCHODOWE':'MYJNIA','ADBLUE           SZT':'PŁYNY EKSPLOATACYJNE/OLEJE SILNIKOWE/INNE PRODUKTY',
+           'AUTO MYJNIA      SZT':'MYJNIA','ADBLUE':'PŁYNY EKSPLOATACYJNE/OLEJE SILNIKOWE/INNE PRODUKTY',
+	        'BEZOLOW 95       LTR':'PALIWO','ULTIMATE DIESEL  LTR':'PALIWO'}
 
-#Wczytywanie danych
 try:
     df_full = pd.read_excel(plik)
 except:
@@ -45,21 +38,16 @@ except:
     exit()
 
 df_full=pd.read_excel(plik)
-if df_full['Wystawca dokumentu'][1] == 'foo':
-	df_full['Wystawca dokumentu'][1] = 'oof'
-else:
-	df_full['Wystawca dokumentu'][1] = 'foo'
 df_full=df_full.rename(columns={'Wartosc netto po rabacie':'Wartosc netto'})
 df=df_full[['Numer karty','Nr rejestracyjny / Imię i nazwisko','Grupa produktowa','Ilosc','Jednostka',
            'Cena za jednostke','Wartosc netto','Stopa VAT','Brutto']]
-
 
 #Operacje na źródle
 car_miss(df, card_code)
 find_newcomer(df,card_code,attribute)
 car_size(df, car, truck)
 vat_i_brutto_fix(df)
-account_pull(df, attribute)
+account_pull(df, attribute,id)
 df=odlicz(df)
 transfer_grosza(df)
 #------------------------------------------------------

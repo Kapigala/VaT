@@ -22,8 +22,6 @@ def find_newcomer(df,dict1,dict2):
         print('PRZERWANIE OPERACJI: Wymagane uzupełnienie')
         exit()
 
-
-
 def car_miss(df, dict):
     l=dict.keys()
     for element in l:
@@ -48,28 +46,56 @@ def vat_i_brutto_fix(df):
     df['Netto'] = pd.to_numeric(df['Netto'])
     df['Vat']=df['Brutto']-df['Netto']
 
-def account_pull(df, dict):
+def account_pull(df, dict,kod):
     df['Konto']=np.zeros(df['Brutto'].size)
-    for el in (df['Grupa produktowa'].unique()):
-        if dict[el]=='PALIWO':
-            df.loc[(df['Rozmiar'] == 1) & (df['Grupa produktowa'] == el),'Konto']= '508-01-003C'
-            df.loc[(df['Rozmiar'] == 0.5) & (df['Grupa produktowa'] == el), 'Konto'] = '550-01-006OSOB'
-            df.loc[(df['Rozmiar'] == 1) & (df['Grupa produktowa'] == el) & (df['Nr rejestracyjny / Imię i nazwisko'] == 'EL8G506'), 'Konto'] = '503-01-01-003C'
-        elif dict[el]=='OPŁATA MANIPULACYJNA/ OPŁATA ZA KORZYSTANIE Z KARTY':
-            df.loc[(df['Rozmiar'] == 1) & (df['Grupa produktowa'] == el),'Konto'] = '550-02-004C'
-            df.loc[(df['Rozmiar'] == 0.5) & (df['Grupa produktowa'] == el), 'Konto'] = '550-02-004OSOB'
-        elif dict[el]=='VIATOLL/OPŁATY DROGOWE/AUTOSTRADY':
-            df.loc[(df['Rozmiar'] == 1) & (df['Grupa produktowa'] == el),'Konto'] = '508-06-001'
-            df.loc[(df['Rozmiar'] == 0.5) & (df['Grupa produktowa'] == el), 'Konto'] = '550-06-001'
-            df.loc[(df['Rozmiar'] == 1) & (df['Grupa produktowa'] == el) & (df['Nr rejestracyjny / Imię i nazwisko']=='EL8G506'),'Konto']='503-01-06-002'
-        elif dict[el]=='PŁYNY EKSPLOATACYJNE/OLEJE SILNIKOWE/INNE PRODUKTY':
-            df.loc[(df['Rozmiar'] == 1) & (df['Grupa produktowa'] == el),'Konto'] = '508-01-004C'
-            df.loc[(df['Rozmiar'] == 0.5) & (df['Grupa produktowa'] == el), 'Konto'] = '550-01-008OSOB'
-            df.loc[(df['Rozmiar'] == 1) & (df['Grupa produktowa'] == el) & (df['Nr rejestracyjny / Imię i nazwisko'] == 'EL8G506'), 'Konto'] = '503-01-01-004C'
-        elif dict[el]=='MYJNIA':
-            df.loc[(df['Rozmiar'] == 1) & (df['Grupa produktowa'] == el),'Konto'] = '508-02-001C'
-            df.loc[(df['Rozmiar'] == 0.5) & (df['Grupa produktowa'] == el), 'Konto'] = '550-02-004OSOB'
-            df.loc[(df['Rozmiar'] == 1) & (df['Grupa produktowa'] == el) & (df['Nr rejestracyjny / Imię i nazwisko'] == 'EL8G506'), 'Konto'] = '503-01-02-002C'
+    if kod=='PSD' or kod=='psd':
+        for el in (df['Grupa produktowa'].unique()):
+            if dict[el]=='PALIWO':
+                df.loc[(df['Rozmiar'] == 1) & (df['Grupa produktowa'] == el),'Konto']= '508-01-003C'
+                df.loc[(df['Rozmiar'] == 0.5) & (df['Grupa produktowa'] == el), 'Konto'] = '550-01-006OSOB'
+                df.loc[(df['Rozmiar'] == 1) & (df['Grupa produktowa'] == el) & (df['Nr rejestracyjny / Imię i nazwisko'] == 'EL8G506'), 'Konto'] = '503-01-01-003C'
+            elif dict[el]=='OPŁATA MANIPULACYJNA/ OPŁATA ZA KORZYSTANIE Z KARTY':
+                df.loc[(df['Rozmiar'] == 1) & (df['Grupa produktowa'] == el),'Konto'] = '550-02-004C'
+                df.loc[(df['Rozmiar'] == 0.5) & (df['Grupa produktowa'] == el), 'Konto'] = '550-02-004OSOB'
+            elif dict[el]=='VIATOLL/OPŁATY DROGOWE/AUTOSTRADY':
+                df.loc[(df['Rozmiar'] == 1) & (df['Grupa produktowa'] == el),'Konto'] = '508-06-001'
+                df.loc[(df['Rozmiar'] == 0.5) & (df['Grupa produktowa'] == el), 'Konto'] = '550-06-001'
+                df.loc[(df['Rozmiar'] == 1) & (df['Grupa produktowa'] == el) & (df['Nr rejestracyjny / Imię i nazwisko']=='EL8G506'),'Konto']='503-01-06-002'
+            elif dict[el]=='PŁYNY EKSPLOATACYJNE/OLEJE SILNIKOWE/INNE PRODUKTY':
+                df.loc[(df['Rozmiar'] == 1) & (df['Grupa produktowa'] == el),'Konto'] = '508-01-004C'
+                df.loc[(df['Rozmiar'] == 0.5) & (df['Grupa produktowa'] == el), 'Konto'] = '550-01-008OSOB'
+                df.loc[(df['Rozmiar'] == 1) & (df['Grupa produktowa'] == el) & (df['Nr rejestracyjny / Imię i nazwisko'] == 'EL8G506'), 'Konto'] = '503-01-01-004C'
+            elif dict[el]=='MYJNIA':
+                df.loc[(df['Rozmiar'] == 1) & (df['Grupa produktowa'] == el),'Konto'] = '508-02-001C'
+                df.loc[(df['Rozmiar'] == 0.5) & (df['Grupa produktowa'] == el), 'Konto'] = '550-02-004OSOB'
+                df.loc[(df['Rozmiar'] == 1) & (df['Grupa produktowa'] == el) & (df['Nr rejestracyjny / Imię i nazwisko'] == 'EL8G506'), 'Konto'] = '503-01-02-002C'
+    elif kod=='PSG' or kod=='psg':
+        for el in (df['Grupa produktowa'].unique()):
+            if dict[el]=='PALIWO':
+                df.loc[(df['Rozmiar'] == 1) & (df['Grupa produktowa'] == el),'Konto']= '550-01-004C'
+                df.loc[(df['Rozmiar'] == 0.5) & (df['Grupa produktowa'] == el), 'Konto'] = '550-01-004OSOB'
+                df.loc[(df['Rozmiar'] == 0.5) & (df['Grupa produktowa'] == el) & (df['Nr rejestracyjny / Imię i nazwisko'] == 'EL6L183'), 'Konto'] = '503-01-01-003OSOB'
+                df.loc[(df['Rozmiar'] == 0.5) & (df['Grupa produktowa'] == el) & (df['Nr rejestracyjny / Imię i nazwisko'] == 'WZ365AX'), 'Konto'] = '503-01-01-003OSOB'
+            elif dict[el]=='OPŁATA MANIPULACYJNA/ OPŁATA ZA KORZYSTANIE Z KARTY':
+                df.loc[(df['Rozmiar'] == 1) & (df['Grupa produktowa'] == el), 'Konto'] = '550-02-013'
+                df.loc[(df['Rozmiar'] == 0.5) & (df['Grupa produktowa'] == el), 'Konto'] = '550-02-013'
+                df.loc[(df['Rozmiar'] == 0.5) & (df['Grupa produktowa'] == el) & (df['Nr rejestracyjny / Imię i nazwisko'] == 'EL6L183'), 'Konto'] = '503-01-02-003'
+                df.loc[(df['Rozmiar'] == 0.5) & (df['Grupa produktowa'] == el) & (df['Nr rejestracyjny / Imię i nazwisko'] == 'WZ365AX'), 'Konto'] = '503-01-02-003'
+            elif dict[el]=='VIATOLL/OPŁATY DROGOWE/AUTOSTRADY':
+                df.loc[(df['Rozmiar'] == 1) & (df['Grupa produktowa'] == el), 'Konto'] = '550-02-013'
+                df.loc[(df['Rozmiar'] == 0.5) & (df['Grupa produktowa'] == el), 'Konto'] = '550-02-013'
+                df.loc[(df['Rozmiar'] == 0.5) & (df['Grupa produktowa'] == el) & (df['Nr rejestracyjny / Imię i nazwisko'] == 'EL6L183'), 'Konto'] = '503-01-06-002'
+                df.loc[(df['Rozmiar'] == 0.5) & (df['Grupa produktowa'] == el) & (df['Nr rejestracyjny / Imię i nazwisko'] == 'WZ365AX'), 'Konto'] = '503-01-06-002'
+            elif dict[el]=='PŁYNY EKSPLOATACYJNE/OLEJE SILNIKOWE/INNE PRODUKTY':
+                df.loc[(df['Rozmiar'] == 1) & (df['Grupa produktowa'] == el), 'Konto'] = '550-01-005C'
+                df.loc[(df['Rozmiar'] == 0.5) & (df['Grupa produktowa'] == el), 'Konto'] = '550-01-005OSOB'
+                df.loc[(df['Rozmiar'] == 0.5) & (df['Grupa produktowa'] == el) & (df['Nr rejestracyjny / Imię i nazwisko'] == 'EL6L183'), 'Konto'] = '503-01-01-004OSOB'
+                df.loc[(df['Rozmiar'] == 0.5) & (df['Grupa produktowa'] == el) & (df['Nr rejestracyjny / Imię i nazwisko'] == 'WZ365AX'), 'Konto'] = '503-01-01-004OSOB'
+            elif dict[el]=='MYJNIA':
+                df.loc[(df['Rozmiar'] == 1) & (df['Grupa produktowa'] == el), 'Konto'] = '550-02-004C'
+                df.loc[(df['Rozmiar'] == 0.5) & (df['Grupa produktowa'] == el), 'Konto'] = '550-02-004OSOB'
+                df.loc[(df['Rozmiar'] == 0.5) & (df['Grupa produktowa'] == el) & (df['Nr rejestracyjny / Imię i nazwisko'] == 'EL6L183'), 'Konto'] = '503-01-02-002OSOB'
+                df.loc[(df['Rozmiar'] == 0.5) & (df['Grupa produktowa'] == el) & (df['Nr rejestracyjny / Imię i nazwisko'] == 'WZ365AX'), 'Konto'] = '503-01-02-002OSOB'
 
 def odlicz(df):
     df['Odliczenie'] = 'NIE'
@@ -86,11 +112,11 @@ def transfer_grosza(df):
     df['Netto'] = df['Netto'].round(3)
     df['Vat'] = df['Vat'].round(3)
 
-    for k in ['Vat']:
+    for k in ['Vat','Netto','Brutto']:
         for i in df.loc[df['Odliczenie']=='NIE',k]:
-            if 100*i - math.floor(100*i) == 0.005 :
+            if 100*i - math.floor(100*i) != 0 :
                 df.loc[(df['Odliczenie']=='TAK')&(df[k]==i),k]-=0.005
-                df.loc[(df['Odliczenie'] == 'NIE') & (df[k] == i), k] += 0.005
+                df.loc[(df['Odliczenie'] == 'NIE') & (df[k] == i),k] += 0.005
 
 def podsumowanie(df):
     tab = df
@@ -105,3 +131,25 @@ def podsumowanie(df):
                 x = tab.loc[(tab['Konto'] == pl) & (tab['Stopa VAT'] == p), k].sum()
                 lista.append([pl, p, k, x])
     return lista
+def reader(x,di=0):
+    if di==0:
+        with open(x,'r') as f:
+            lines = [line.strip() for line in f]
+            f.close()
+        return lines
+    else:
+        d = {}
+        with open(x) as f:
+            for line in f:
+                key, value = line.strip().split(':')
+                key=int(key)
+                d[key] = value
+        return d
+
+def fold():
+    kod=input('Wprowadź identyfikator firmy >')
+    path= '../Flotex/{}/'.format(kod)
+    car=reader('{}'.format(path)+'car.txt')
+    truck = reader('{}'.format(path)+'truck.txt')
+    card_code= reader('{}'.format(path)+'depth.txt',1)
+    return car,truck,card_code,kod

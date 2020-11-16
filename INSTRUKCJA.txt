@@ -5,11 +5,12 @@ Instruckcja obsługi:
 4)W cmd wklejamy pierwszą linijkę z notatnika Komenda.txt, klikamy enter,
  a następnie wklejamy drugą i ponownie enter.
 5) W wyznaczonym miejscu wpisujemy nazwę pliku wraz z rozszerzeniem
-6)Czekamy na informację
-7a) W przypadku błędu czytamy komunikat przerwania
-7a.1) Poprawiamy nazwę pliku 7a.2) Kontaktujemy się po uzupełnienia  
-7a.3) Jeśli wpisana nazwa jest poprawna wykonujemy polecenie erroru. 
-8)PRZENOSIMY nowo powstałe pliki oraz bazowy do innego folderu lub na pulpit + zamykamy cmd
+6)Wpisujemy identyfikator firmy
+7)Czekamy na informację
+8a) W przypadku błędu czytamy komunikat przerwania
+8a.1) Poprawiamy nazwę pliku 8a.2) Kontaktujemy się po uzupełnienia  
+8a.3) Jeśli wpisana nazwa jest poprawna wykonujemy polecenie erroru. 
+9)PRZENOSIMY nowo powstałe pliki oraz bazowy do innego folderu lub na pulpit + zamykamy cmd
 
 
 Aktualizacje:
