@@ -6,7 +6,7 @@ pd.options.mode.chained_assignment = None  # default='warn'
 
 print('VaT 2020 ver 1.2')
 print('Kasia1 PSD     Kamila PSG')
-car,truck,card_code,id=fold()
+car,truck,card_code,id_t=fold()
 nazwa=input('Proszę podać nazwę pliku > ')
 
 ####TEST##3
@@ -47,7 +47,7 @@ car_miss(df, card_code)
 find_newcomer(df,card_code,attribute)
 car_size(df, car, truck)
 vat_i_brutto_fix(df)
-account_pull(df, attribute,id)
+account_pull(df, attribute,id_t)
 df=odlicz(df)
 transfer_grosza(df)
 #------------------------------------------------------
@@ -65,6 +65,6 @@ tablica=pd.DataFrame(lista,columns=['Konto','Stopa VAT','Cecha','Wartość'])
 
 #Zapisywanie
 work.to_excel('{}_{}.xlsx'.format(nazwa[0:-4],today))
-tablica.to_excel('Sumy_{}.xlsx'.format(today))
+tablica.to_excel('Sumy_{}_{}.xlsx'.format(today,id_t))
 
 print('Raport gotowy')
