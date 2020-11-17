@@ -4,7 +4,7 @@ from def_base import fold
 from datetime import date
 pd.options.mode.chained_assignment = None  # default='warn'
 
-print('VaT 2020 ver 1.2')
+print('VaT 2020 ver 1.2a')
 print('Kasia1 PSD     Kamila PSG')
 car,truck,card_code,id_t=fold()
 nazwa=input('Proszę podać nazwę pliku > ')
