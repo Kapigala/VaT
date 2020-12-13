@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-import math
 
 def find_newcomer(df,dict1,dict2):
     fail=0
@@ -105,18 +104,25 @@ def odlicz(df):
     df.loc[(df['Rozmiar'] == 0.5), 'Vat'] = df['Vat'] / 2
     ex_natak=df.loc[(df['Rozmiar'] == 0.5)]
     ex_natak.loc[(df['Rozmiar'] == 0.5) & (df['Stawka Vat'] != 0), 'Odliczenie']='TAK'
+
     return pd.concat([df,ex_natak])
 
 def transfer_grosza(df):
     df['Brutto'] = df['Brutto'].round(3)
     df['Netto'] = df['Netto'].round(3)
     df['Vat'] = df['Vat'].round(3)
-
     for k in ['Vat','Netto','Brutto']:
-        for i in df.loc[df['Odliczenie']=='NIE',k]:
-            if 100*i - math.floor(100*i) != 0 :
-                df.loc[(df['Odliczenie']=='TAK')&(df[k]==i),k]-=0.005
-                df.loc[(df['Odliczenie'] == 'NIE') & (df[k] == i),k] += 0.005
+        df.loc[(df['Odliczenie'] == 'TAK') & (df[k] != df[k].round(2) ), k] -= 0.005
+        df.loc[(df['Odliczenie'] == 'NIE') & (df[k] != df[k].round(2) ) & (df['Stopa VAT'] != 'ND') & (df['Stopa VAT'] != 'ZW'), k] += 0.005
+
+def kontrola(df):
+    ilość=df.loc[((df['Stopa VAT'] == 'ZW') | (df['Stopa VAT'] == 'ND')), 'Netto'].shape[0]
+    x=int(ilość/2)
+
+    df.loc[((df['Stopa VAT'] == 'ZW') | (df['Stopa VAT'] == 'ND')) & (df['index'] < x) & (df['Netto'] != df['Netto'].round(2) ), 'Netto']-=0.005
+    df.loc[((df['Stopa VAT'] == 'ZW') | (df['Stopa VAT'] == 'ND')) & (df['index'] < ilość) & (df['Netto'] != df['Netto'].round(2)), 'Netto'] += 0.005
+    df.loc[((df['Stopa VAT'] == 'ZW') | (df['Stopa VAT'] == 'ND')) & (df['index'] < x) & (df['Brutto'] != df['Brutto'].round(2)), 'Brutto'] -= 0.005
+    df.loc[((df['Stopa VAT'] == 'ZW') | (df['Stopa VAT'] == 'ND')) & (df['index'] < ilość) & (df['Brutto'] != df['Brutto'].round(2)), 'Brutto'] += 0.005
 
 def podsumowanie(df):
     tab = df
@@ -131,6 +137,7 @@ def podsumowanie(df):
                 x = tab.loc[(tab['Konto'] == pl) & (tab['Stopa VAT'] == p), k].sum()
                 lista.append([pl, p, k, x])
     return lista
+
 def reader(x,di=0):
     if di==0:
         with open(x,'r') as f:

@@ -1,15 +1,14 @@
 import pandas as pd
-from def_base import car_miss,car_size,vat_i_brutto_fix,account_pull,odlicz,transfer_grosza,podsumowanie,find_newcomer
+from def_base import car_miss,car_size,vat_i_brutto_fix,account_pull,odlicz,transfer_grosza,podsumowanie,find_newcomer,kontrola
 from def_base import fold
 from datetime import date
 pd.options.mode.chained_assignment = None  # default='warn'
 
-print('VaT 2020 ver 1.2a')
+print('VaT 2020 ver 1.3')
 print('Kasia1 PSD     Kamila PSG')
-car,truck,card_code,id_t=fold()
+car,truck,card_code,id=fold()
 nazwa=input('Proszę podać nazwę pliku > ')
 
-####TEST##3
 #nazwa='raw.xls'
 plik='../Flotex/{}'.format(nazwa)
 
@@ -47,13 +46,22 @@ car_miss(df, card_code)
 find_newcomer(df,card_code,attribute)
 car_size(df, car, truck)
 vat_i_brutto_fix(df)
-account_pull(df, attribute,id_t)
+account_pull(df, attribute,id)
 df=odlicz(df)
+df=df.sort_values(by=['Vat'], ascending=True)
+
+#Utworzenie Parowania
+df = df.reset_index()
+df=df.rename(columns={ 'index':'Parowanie'})
+df = df.reset_index()
+
 transfer_grosza(df)
 #------------------------------------------------------
 #Dane prezentowane
-work=df[['Konto', 'Grupa produktowa', 'Stopa VAT', 'Netto', 'Vat', 'Brutto', 'Odliczenie']]
-work=work.sort_values(['Konto', 'Brutto', 'Odliczenie'], ascending=[True, True, False])
+work=df[['index','Parowanie','Konto', 'Grupa produktowa', 'Stopa VAT', 'Netto', 'Vat', 'Brutto', 'Odliczenie']]
+kontrola(work)
+work=work.drop(columns=['index'])
+work=work.sort_values(by=['Konto', 'Brutto', 'Odliczenie'], ascending=[True, True, False])
 
 #Data do tytułu
 today = date.today()
@@ -65,6 +73,6 @@ tablica=pd.DataFrame(lista,columns=['Konto','Stopa VAT','Cecha','Wartość'])
 
 #Zapisywanie
 work.to_excel('{}_{}.xlsx'.format(nazwa[0:-4],today))
-tablica.to_excel('Sumy_{}_{}.xlsx'.format(today,id_t))
+tablica.to_excel('Sumy_{}.xlsx'.format(today))
 
 print('Raport gotowy')
