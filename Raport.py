@@ -4,7 +4,7 @@ from def_base import fold
 from datetime import date
 pd.options.mode.chained_assignment = None  # default='warn'
 
-print('VaT 2020 ver 1.3')
+print('VaT 2020 ver 1.4')
 print('Kasia1 PSD     Kamila PSG')
 car,truck,card_code,id=fold()
 nazwa=input('Proszę podać nazwę pliku > ')
@@ -26,7 +26,7 @@ attribute={'OLEJ NAPĘDOWY': 'PALIWO', 'LPG': 'PALIWO', 'GAZ PLYNNY       LTR': 
            'AKCESORIA SAMOCHODOWE':'PŁYNY EKSPLOATACYJNE/OLEJE SILNIKOWE/INNE PRODUKTY',
            'USŁUGI SAMOCHODOWE':'MYJNIA','ADBLUE           SZT':'PŁYNY EKSPLOATACYJNE/OLEJE SILNIKOWE/INNE PRODUKTY',
            'AUTO MYJNIA      SZT':'MYJNIA','ADBLUE':'PŁYNY EKSPLOATACYJNE/OLEJE SILNIKOWE/INNE PRODUKTY',
-	        'BEZOLOW 95       LTR':'PALIWO','ULTIMATE DIESEL  LTR':'PALIWO'}
+	        'BEZOLOW 95       LTR':'PALIWO','ULTIMATE DIESEL  LTR':'PALIWO','PLYN DO SPRYSK   SZT':'PŁYNY EKSPLOATACYJNE/OLEJE SILNIKOWE/INNE PRODUKTY'}
 
 try:
     df_full = pd.read_excel(plik)
